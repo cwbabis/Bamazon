@@ -15,6 +15,45 @@ var connection = mysql.createConnection({
   database: "bamazon"
 });
 
-connection.connect(function(err) {
+connection.connect(function (err) {
   if (err) throw err;
+  runApp();
 });
+function runApp() {
+  inquirer
+    .prompt({
+      name: "action",
+      type: "rawlist",
+      message: "What would you like to do?",
+      choices: [
+        "View Products for Sale",
+        "View Low Inventory",
+        "Add to Inventory",
+        "Add New Product",
+        "Exit"
+      ]
+    })
+    .then(function (answer) {
+      switch (answer.action) {
+        case "View Products for Sale":
+          productList();
+          break;
+
+        case "View Low Inventory":
+          inventoryLow();
+          break;
+
+        case "Add to Inventory":
+          inventoryAdd();
+          break;
+
+        case "Add New Product":
+          productNew();
+          break;
+
+        case "Exit":
+          connection.end();
+          break;
+      }
+    });
+}

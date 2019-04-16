@@ -1,0 +1,24 @@
+{
+  "name": "Bamazon",
+  "version": "1.0.0",
+  "description": "Bamazon Inc., offers a range of products and services through its command line terminal.",
+  "main": "bamazonCustomer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cwbabis/Bamazon.git"
+  },
+  "keywords": [],
+  "author": "Christopher Babis",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cwbabis/Bamazon/issues"
+  },
+  "homepage": "https://github.com/cwbabis/Bamazon#readme",
+  "dependencies": {
+    "inquirer": "^6.3.1",
+    "mysql": "^2.16.0"
+  }
+}
