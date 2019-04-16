@@ -86,9 +86,36 @@ function inventoryAdd() {
   inquirer
     .prompt([
       {
-        name: "item"
+        name: "item",
+        type: "input",
+        message: "Which item needs to be restocked?"
+      },
+      {
+        name: "stock",
+        type: "input",
+        message: "How much of this item are you into the inventory?",
+        validate: function (value) {
+          if (isNaN(value) === false) {
+            return true;
+          }
+          return false;
+        }
       }
     ])
+    .then(function (answer) {
+      connection.query(
+        "INSERT INTO products SET ?",
+        {
+          product_name: answer.item,
+          stock_quantity: stock_quantity + answer.stock 
+        },
+        function (error) {
+          if (error) throw err;
+          console.log("===============================================================\nThe stock of your item was successfully updated!!\n===============================================================")
+          runApp();
+        }
+      )
+    })
 }
 function inventoryNew() {
   inquirer
