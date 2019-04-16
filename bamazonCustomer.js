@@ -70,12 +70,10 @@ function inventoryList() {
     })
     .then(function (answer) {
       var query = "SELECT * FROM bamazon";
-
       //(property) Connection.query: QueryFunction
       //(options: string | QueryOptions, callback?: queryCallback) => Query (+2 overloads)
       connection.query(query, { inventory: answer.inventory }, function (error, response) {
         for (var i = 0; i < response.length; i++) {
-          console.log("Position: " + response[i].position + " || Song: " + response[i].song + " || Year: " + response[i].year);
         }
         runApp();
       });
@@ -117,7 +115,7 @@ function inventoryNew() {
         }
       },
       {
-      name: "stock",
+        name: "stock",
         type: "input",
         message: "How much of this item are you into the inventory?",
         validate: function (value) {
@@ -128,7 +126,7 @@ function inventoryNew() {
         }
       }
     ])
-    .then(function(answer){
+    .then(function (answer) {
       connection.query(
         "INSERT INTO products SET ?",
         {
@@ -137,12 +135,11 @@ function inventoryNew() {
           price: answer.price,
           stock_quantity: answer.stock
         },
-        function(error){
+        function (error) {
           if (error) throw err;
-          console.log("Your item was successfully added to the current list inventory!")
+          console.log("===============================================================\nYour item was successfully added to the current list inventory!\n===============================================================")
           runApp();
         }
       )
     })
-
 }
