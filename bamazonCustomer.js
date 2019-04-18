@@ -82,7 +82,7 @@ function inventoryList() {
     }
     const header = ['ID', 'Name', 'Department', 'Price(USD)', 'Stock Quanity'];
     const data = [header.map(s => s.green)];
-    for(let i = 0; i < res.length; i++) {
+    for (let i = 0; i < res.length; i++) {
       const row = res[i];
       data.push([row.item_id.toString().yellow, row.product_name, row.department_name, row.price, row.stock_quantity]);
     }
@@ -96,40 +96,45 @@ function inventoryLow() {
 
 }
 function inventoryAdd() {
-  inquirer
-    .prompt([
-      {
-        name: "item",
-        type: "input",
-        message: "Which item needs to be restocked?"
-      },
-      {
-        name: "stock",
-        type: "input",
-        message: "How much of this item are you into the inventory?",
-        validate: function (value) {
-          if (isNaN(value) === false) {
-            return true;
-          }
-          return false;
-        }
-      }
-    ])
-    .then(function (answer) {
-      connection.query(
-        "INSERT INTO products SET ?",
+  connection.query("SELECT * FROM products", function (err, results) {
+    if (err) throw err;
+    inquirer
+      .prompt([
         {
-          product_name: answer.item,
-          stock_quantity: stock_quantity + answer.stock
+          name: "item",
+          type: "input",
+          message: "Which item number needs to be restocked?"
         },
-        function (error) {
-          if (error) throw err;
-          console.log("===============================================================\nThe stock of your item was successfully updated!!\n===============================================================")
-          runApp();
+        {
+          name: "stock",
+          type: "input",
+          message: "How much of this item are you adding into the inventory?",
+          validate: function (value) {
+            if (isNaN(value) === false) {
+              return true;
+            }
+            return false;
+          }
         }
-      )
-    })
-}
+      ])
+      .then(function (answer) {
+        connection.query(
+          "UPDATE products SET stock_quantity ? WHERE ?",
+          [
+            {
+              stock_quantity: answer.stock,
+              item_id: answer.item
+            }
+          ],
+          function (error) {
+            if (error) throw err;
+            console.log("===============================================================\nThe stock of your item was successfully updated!!\n===============================================================")
+            runApp();
+          }
+        )
+      })
+  });
+};
 function inventoryNew() {
   inquirer
     .prompt([
