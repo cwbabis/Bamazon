@@ -4,6 +4,7 @@
   "description": "Bamazon Inc., offers a range of products and services through its command line terminal.",
   "main": "bamazonCustomer.js",
   "scripts": {
+    "start": "node bamazonCustomer.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {

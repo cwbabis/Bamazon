@@ -73,26 +73,15 @@ function runApp() {
 }
 
 function inventoryList() {
-  inquirer
-    .prompt({
-      name: "inventory",
-      type: "list",
-      message: "List of Available Products:",
-      choices: [
+  //(property) Connection.query: QueryFunction
+  //(options: string | QueryOptions, callback?: queryCallback) => Query (+2 overloads)
+  connection.query("SELECT * FROM bamazon.products", function (err, res) {
+    console.log(res);
+  });
+  runApp();
+};
 
-      ]
-    })
-    .then(function (answer) {
-      var query = "SELECT * FROM bamazon";
-      //(property) Connection.query: QueryFunction
-      //(options: string | QueryOptions, callback?: queryCallback) => Query (+2 overloads)
-      connection.query(query, { inventory: answer.inventory }, function (error, response) {
-        for (var i = 0; i < response.length; i++) {
-        }
-        runApp();
-      });
-    });
-}
+
 function inventoryLow() {
 
 }
