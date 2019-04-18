@@ -1,5 +1,9 @@
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var figlet = require("figlet");
+var colors = require("colors");
+var table = require("table");
+
 
 var connection = mysql.createConnection({
   host: "localhost",
@@ -14,10 +18,20 @@ var connection = mysql.createConnection({
   password: "r00tr00t",
   database: "bamazon"
 });
-
 connection.connect(function (err) {
   if (err) throw err;
-  runApp();
+
+
+
+  figlet('Bamazon Manager App', function (err, data) {
+    if (err) {
+      console.log('Something went wrong...');
+      console.dir(err);
+      return;
+    }
+    console.log("==============================================================================================================\n" + data + "\n==============================================================================================================");
+    runApp();
+  });
 });
 function runApp() {
   inquirer
@@ -107,7 +121,7 @@ function inventoryAdd() {
         "INSERT INTO products SET ?",
         {
           product_name: answer.item,
-          stock_quantity: stock_quantity + answer.stock 
+          stock_quantity: stock_quantity + answer.stock
         },
         function (error) {
           if (error) throw err;

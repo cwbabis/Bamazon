@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/cwbabis/Bamazon#readme",
   "dependencies": {
+    "colors": "^1.3.3",
+    "figlet": "^1.2.1",
     "inquirer": "^6.3.1",
-    "mysql": "^2.16.0"
+    "mysql": "^2.16.0",
+    "table": "^5.2.3"
   }
 }
