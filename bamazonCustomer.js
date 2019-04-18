@@ -2,7 +2,7 @@ var mysql = require("mysql");
 var inquirer = require("inquirer");
 var figlet = require("figlet");
 var colors = require("colors");
-var table = require("table");
+var { table } = require("table");
 
 
 var connection = mysql.createConnection({
@@ -76,7 +76,17 @@ function inventoryList() {
   //(property) Connection.query: QueryFunction
   //(options: string | QueryOptions, callback?: queryCallback) => Query (+2 overloads)
   connection.query("SELECT * FROM bamazon.products", function (err, res) {
-    console.log(res);
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const header = ['ID', 'Name', 'Department', 'Price(USD)', 'Stock Quanity'];
+    const data = [header.map(s => s.green)];
+    for(let i = 0; i < res.length; i++) {
+      const row = res[i];
+      data.push([row.item_id.toString().yellow, row.product_name, row.department_name, row.price, row.stock_quantity]);
+    }
+    console.log('\n' + table(data));
   });
   runApp();
 };
