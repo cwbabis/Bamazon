@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "r00tr00t",
+  password: "iscream4",
   database: "bamazon"
 });
 connection.connect(function (err) {
@@ -87,14 +87,30 @@ function inventoryList() {
       data.push([row.item_id.toString().yellow, row.product_name, row.department_name, row.price, row.stock_quantity]);
     }
     console.log('\n' + table(data));
+    runApp();
   });
-  runApp();
+
 };
 
 
 function inventoryLow() {
+  //console log data in table where products.stock_quantity is < 5.
+  connection.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, res) {
+    if (err) {
+      console.error(err);
+      return;
+    }
+    const header = ['ID', 'Name', 'Department', 'Price(USD)', 'Stock Quanity'];
+    const data = [header.map(s => s.green)];
+    for (let i = 0; i < res.length; i++) {
+      const row = res[i];
+      data.push([row.item_id.toString().yellow, row.product_name, row.department_name, row.price, row.stock_quantity]);
+    }
+    console.log('\n' + table(data));
+    runApp();
+  });
+};
 
-}
 function inventoryAdd() {
   connection.query("SELECT * FROM products", function (err, results) {
     if (err) throw err;
@@ -103,7 +119,7 @@ function inventoryAdd() {
         {
           name: "item",
           type: "input",
-          message: "Which item number needs to be restocked?"
+          message: "Item ID of the item that is being restocked?"
         },
         {
           name: "stock",
@@ -118,20 +134,32 @@ function inventoryAdd() {
         }
       ])
       .then(function (answer) {
-        connection.query(
-          "UPDATE products SET stock_quantity ? WHERE ?",
-          [
-            {
-              stock_quantity: answer.stock,
-              item_id: answer.item
-            }
-          ],
-          function (error) {
-            if (error) throw err;
-            console.log("===============================================================\nThe stock of your item was successfully updated!!\n===============================================================")
-            runApp();
+        
+        connection.query("SELECT * FROM products")
+        var current_stock = [];
+        [
+          {
+            item_id: answer.item
           }
-        )
+        ],
+          connection.query(
+            "UPDATE products SET ? WHERE ?",
+            [
+              {
+                stock_quantity: current_stock += answer.stock,
+              },
+              {
+                item_id: answer.item
+              }
+
+            ],
+
+            function (error) {
+              if (error) throw err;
+              console.log("===============================================================\nThe stock of your item was successfully updated!!\n===============================================================")
+              runApp();
+            }
+          )
       })
   });
 };
