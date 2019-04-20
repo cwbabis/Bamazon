@@ -1,4 +1,4 @@
-# Bamazon
+![](bamazon.png "png")
 Bamazon Inc., offers a range of products and services through its command line terminal.
 
 ### How To Run Bamazon Manager App
