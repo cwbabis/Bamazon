@@ -43,7 +43,7 @@ This Option will prompt you to put in a couple values in order to add to the exi
     
 The stock of the item will update and you'll see a preview of the updated table
 
-![](addToInventoryTable.png "png")
+![](addToInventory.png "png")
 
 Option 4: `Add New Product`
 
