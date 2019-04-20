@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "r00tr00t",
+  password: "iscream4",
   database: "bamazon"
 });
 connection.connect(function (err) {
@@ -111,6 +111,11 @@ function inventoryLow() {
   });
 };
 
+
+
+
+
+
 function inventoryAdd() {
   connection.query("SELECT * FROM products", function (err, results) {
     if (err) throw err;
@@ -134,24 +139,27 @@ function inventoryAdd() {
         }
       ])
       .then(function (answer) {
-        console.log("===============================================================\nItem Inventory Updated!\n===============================================================")
-        "UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?"
-        [
-          {
-            stock_quantity: answer.stock,
-          },
-          {
+        var updateQuantity = (parseInt(results[0].stock_quantity)+ parseInt(answer.stock));
+        connection.query("UPDATE products SET ? WHERE ?",
+          [{
+            stock_quantity: updateQuantity
+          }, {
             item_id: answer.item
-          }
-        ],
-          function (error) {
+          }],
+          function (error, result) {
             if (error) throw err;
-            console.log("===============================================================\nThe stock of your item was successfully updated!!\n===============================================================")
-            runApp();
-          };
+          console.log("inventory sucessfully updated!")
+          //inventoryList()
+          runApp();
       });
+      
   });
 };
+
+
+
+
+
 
 function inventoryNew() {
   inquirer
@@ -201,6 +209,7 @@ function inventoryNew() {
         function (error) {
           if (error) throw err;
           console.log("===============================================================\nYour item was successfully added to the current list inventory!\n===============================================================")
+          inventoryList();
           runApp();
         }
       )
