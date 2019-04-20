@@ -134,7 +134,7 @@ function inventoryAdd() {
         }
       ])
       .then(function (answer) {
-        console.log("===============================================================\nYour items stock was successfully updated!\n===============================================================")
+        console.log("===============================================================\nItem Inventory Updated!\n===============================================================")
         "UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?"
         [
           {
