@@ -15,7 +15,7 @@ var connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "iscream4",
+  password: "r00tr00t",
   database: "bamazon"
 });
 connection.connect(function (err) {
@@ -134,35 +134,25 @@ function inventoryAdd() {
         }
       ])
       .then(function (answer) {
-        
-        connection.query("SELECT * FROM products")
-        var current_stock = [];
+        console.log(answer)
+        "UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?"
         [
+          {
+            stock_quantity: answer.stock,
+          },
           {
             item_id: answer.item
           }
         ],
-          connection.query(
-            "UPDATE products SET ? WHERE ?",
-            [
-              {
-                stock_quantity: current_stock += answer.stock,
-              },
-              {
-                item_id: answer.item
-              }
-
-            ],
-
-            function (error) {
-              if (error) throw err;
-              console.log("===============================================================\nThe stock of your item was successfully updated!!\n===============================================================")
-              runApp();
-            }
-          )
-      })
+          function (error) {
+            if (error) throw err;
+            console.log("===============================================================\nThe stock of your item was successfully updated!!\n===============================================================")
+            runApp();
+          };
+      });
   });
 };
+
 function inventoryNew() {
   inquirer
     .prompt([
