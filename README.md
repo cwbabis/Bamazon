@@ -1,5 +1,5 @@
 ![](image_folder/bamazon.png "png")
-<br>
+`<br>`
 Bamazon Inc., offers a range of products and services through its command line terminal.
 
 ### How To Run Bamazon Manager App
