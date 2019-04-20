@@ -101,7 +101,7 @@ function inventoryLow() {
       return;
     }
     const header = ['ID', 'Name', 'Department', 'Price(USD)', 'Stock Quanity'];
-    const data = [header.map(s => s.green)];
+    const data = [header.map(s => s.red)];
     for (let i = 0; i < res.length; i++) {
       const row = res[i];
       data.push([row.item_id.toString().yellow, row.product_name, row.department_name, row.price, row.stock_quantity]);
@@ -134,7 +134,7 @@ function inventoryAdd() {
         }
       ])
       .then(function (answer) {
-        console.log(answer)
+        console.log("===============================================================\nYour items stock was successfully updated!\n===============================================================")
         "UPDATE products SET stock_quantity = stock_quantity + ? WHERE item_id = ?"
         [
           {
