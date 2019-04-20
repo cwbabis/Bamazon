@@ -7,11 +7,11 @@ Instructions:
 1. Clone down the repository.
 2. Navigate to the root of your project and run `npm install` to install all of the required node modules.
 
-![](npminstall.gif "gif")
+![](images/npminstall.gif "gif")
 
 3. Run `npm start` in the terminal to bring up the main menu.
 
-![](npmstart.gif "gif")
+![](images/npmstart.gif "gif")
 
 4. Below you will see 5 options that you can choose from:
     * `View Products for Sale`
@@ -26,13 +26,13 @@ Option 1: `View Products for Sale`
 
 This will go out to the Bamazon Database and return back a table with every single item we have available.
 
-![](inventoryTable.png "png")
+![](images/inventoryTable.png "png")
 
 Option 2: `View Low Inventory`
 
 This will go out to the Bamazon Database and return back a table with all of the items that are low in stock.
 
-![](lowInventoryTable.png "png")
+![](images/lowInventoryTable.png "png")
 
 Option 3: `Add to Inventory`
 
@@ -43,7 +43,7 @@ This Option will prompt you to put in a couple values in order to add to the exi
     
 The stock of the item will update and you'll see a preview of the updated table
 
-![](addToInventory.png "png")
+![](images/addToInventory.png "png")
 
 Option 4: `Add New Product`
 
@@ -56,7 +56,7 @@ This Option will prompt you to put in value so that you can add an entirely new 
   
 Congrats your `New` item is now in the current list of inventory!
 
-![](addNewItemTable.png "png")
+![](images/addNewItemTable.png "png")
 
 Option 5: `Exit`
 
