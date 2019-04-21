@@ -15,14 +15,11 @@ var connection = mysql.createConnection({
   user: "root",
 
   // Your password
-  password: "iscream4",
+  password: "",
   database: "bamazon"
 });
 connection.connect(function (err) {
   if (err) throw err;
-
-
-
   figlet('Bamazon Manager App', function (err, data) {
     if (err) {
       console.log('Something went wrong...');
@@ -71,7 +68,6 @@ function runApp() {
       }
     });
 }
-
 function inventoryList() {
   //(property) Connection.query: QueryFunction
   //(options: string | QueryOptions, callback?: queryCallback) => Query (+2 overloads)
@@ -89,10 +85,7 @@ function inventoryList() {
     console.log('\n' + table(data));
     runApp();
   });
-
 };
-
-
 function inventoryLow() {
   //console log data in table where products.stock_quantity is < 5.
   connection.query("SELECT * FROM products WHERE stock_quantity < 5", function (err, res) {
@@ -110,12 +103,6 @@ function inventoryLow() {
     runApp();
   });
 };
-
-
-
-
-
-
 function inventoryAdd() {
   connection.query("SELECT * FROM products", function (err, results) {
     if (err) throw err;
@@ -139,7 +126,7 @@ function inventoryAdd() {
         }
       ])
       .then(function (answer) {
-        var updateQuantity = (parseInt(results[0].stock_quantity)+ parseInt(answer.stock));
+        var updateQuantity = (parseInt(results[0].stock_quantity) + parseInt(answer.stock));
         connection.query("UPDATE products SET ? WHERE ?",
           [{
             stock_quantity: updateQuantity
@@ -148,19 +135,13 @@ function inventoryAdd() {
           }],
           function (error, result) {
             if (error) throw err;
-          console.log("inventory sucessfully updated!")
-          //inventoryList()
-          runApp();
+            console.log("inventory sucessfully updated!")
+            //inventoryList()
+            runApp();
+          });
       });
-      
   });
-};
-
-
-
-
-
-
+}
 function inventoryNew() {
   inquirer
     .prompt([
@@ -208,10 +189,13 @@ function inventoryNew() {
         },
         function (error) {
           if (error) throw err;
-          console.log("===============================================================\nYour item was successfully added to the current list inventory!\n===============================================================")
-          inventoryList();
+          console.log("Your item was successfully added to the current list inventory!")
           runApp();
         }
-      )
-    })
-}
+      );
+    });
+};
+
+
+
+
