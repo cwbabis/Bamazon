@@ -126,22 +126,29 @@ function inventoryAdd() {
         }
       ])
       .then(function (answer) {
-        var updateQuantity = (parseInt(results[0].stock_quantity) + parseInt(answer.stock));
-        connection.query("UPDATE products SET ? WHERE ?",
-          [{
-            stock_quantity: updateQuantity
-          }, {
-            item_id: answer.item
-          }],
-          function (error, result) {
-            if (error) throw err;
-            console.log("inventory sucessfully updated!")
-            //inventoryList()
-            runApp();
-          });
+        var updateQuantity = (parseInt(results[answer.item].stock_quantity) + parseInt(answer.stock));
+        if (i = answer.item - 1) {
+          connection.query("UPDATE products SET ? WHERE ?",
+            [{
+              stock_quantity: updateQuantity
+            }, {
+              item_id: answer.item
+            }],
+            function (error, result) {
+              if (error) throw err;
+              console.log("inventory sucessfully updated!")
+              //inventoryList()
+              runApp();
+            });
+        };
       });
   });
-}
+};
+
+
+
+
+
 function inventoryNew() {
   inquirer
     .prompt([
