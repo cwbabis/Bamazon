@@ -7,15 +7,16 @@ Bamazon Inc., offers a range of products and services through its command line t
 
 Instructions:
 1. Clone down the repository.
-2. Navigate to the root of your project and run `npm install` to install all of the required node modules.
+2. Import the `csv` file into an SQL database and leave the `password` for the newly created database blank. 
+3. Navigate to the root of your project and run `npm install` to install all of the required node modules.
 
 ![](image_folder/npminstall.gif "gif")
 
-3. Run `npm start` in the terminal to bring up the main menu.
+4. Run `npm start` in the terminal to bring up the main menu.
 
 ![](image_folder/npmstart.gif "gif")
 
-4. Below you will see 5 options that you can choose from:
+5. Below you will see 5 options that you can choose from:
     * `View Products for Sale`
     * `View Low Inventory`
     * `Add to Inventory`
